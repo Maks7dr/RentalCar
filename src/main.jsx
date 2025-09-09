@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./components/App/App.jsx";
 // import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import sprite from "../public/sprite.svg";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
