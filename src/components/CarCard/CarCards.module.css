@@ -1,0 +1,25 @@
+.item {
+  width: 276px;
+}
+.img {
+  border-radius: 14px;
+  width: 276px;
+  height: 268px;
+  margin-bottom: 16px;
+  object-fit: cover;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.color {
+  color: blue;
+}
+.box {
+  display: flex;
+  margin-bottom: 4px;
+}
+.secondBox {
+  display: flex;
+}
