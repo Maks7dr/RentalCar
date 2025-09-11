@@ -2,9 +2,9 @@
 // import viteLogo from "/vite.svg";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Home } from "../Home/Home";
-import { Catalog } from "../Catalog/Catalog";
-import { Details } from "../Details/Details";
+import { HomePage } from "../pages/HomePage";
+import { CatalogPage } from "../pages/CatalogPage";
+import { DetailsPage } from "../pages/DetailsPage";
 import { Layout } from "../Layout/Layout";
 
 function App() {
@@ -12,9 +12,9 @@ function App() {
     <>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/details" element={<Details />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog/:id" element={<DetailsPage />} />
         </Routes>
       </Layout>
     </>

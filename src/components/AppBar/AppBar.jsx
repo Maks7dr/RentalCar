@@ -1,5 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container } from "../Container/Container";
+import { Navigation } from "../Navigation/Navigation";
 import Icon from "../Icon/Icon";
 import css from "./AppBar.module.css";
 
@@ -10,14 +11,7 @@ export const AppBar = () => {
         <Link to="/">
           <Icon name="Logo" className={css.logo} />
         </Link>
-        <nav className={css.nav}>
-          <NavLink className={css.link} to="/">
-            Home
-          </NavLink>
-          <NavLink className={css.link} to="/catalog">
-            Catalog
-          </NavLink>
-        </nav>
+        <Navigation />
       </Container>
     </header>
   );
