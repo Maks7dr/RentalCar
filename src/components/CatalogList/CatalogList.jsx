@@ -9,10 +9,12 @@ import {
 import CarCard from "../CarCard/CarCard";
 import { Container } from "../Container/Container";
 import css from "./CatalogList.module.css";
+import Filters from "../Filters/Filters";
 
 const CarList = () => {
   const dispatch = useDispatch();
   const cars = useSelector(selectCars);
+
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
@@ -25,6 +27,7 @@ const CarList = () => {
 
   return (
     <Container>
+      <Filters />
       <section>
         <ul className={css.list}>
           {cars.map((car) => (
