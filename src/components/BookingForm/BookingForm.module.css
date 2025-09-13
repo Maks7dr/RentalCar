@@ -1,0 +1,83 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  margin-bottom: 8px;
+}
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.label {
+  display: grid;
+}
+.field {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: var(--inputs);
+  border: none;
+}
+.field:hover {
+  border: none;
+}
+.field:active {
+  border: none;
+}
+
+.textarea {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: var(--inputs);
+  border: none;
+  resize: none;
+}
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--white);
+
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  background: var(--button);
+  border: none;
+  margin: 0 auto;
+}
+.button:hover {
+  border: none;
+  transition: background-color 250ms ease-in-out;
+  background-color: var(--button-hover);
+}
+.button:active {
+  border: none;
+}

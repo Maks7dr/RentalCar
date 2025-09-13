@@ -13,6 +13,7 @@ import { Container } from "../Container/Container";
 import css from "./DetailsPage.module.css";
 import { formatMileage } from "../utils/formatMileage";
 import { parseAddress } from "../utils/parseAddress";
+import BookingForm from "../BookingForm/BookingForm";
 import { IoLocationOutline, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { FaCalendarAlt, FaCarSide, FaGasPump, FaCogs } from "react-icons/fa";
 
@@ -43,7 +44,7 @@ const DetailsPage = () => {
       <section className={css.details}>
         <div>
           <img className={css.img} src={car.img} alt={car.brand} width="512" />
-          <div>тут буде форма</div>
+          <BookingForm />
         </div>
 
         <div className={css.boxRight}>

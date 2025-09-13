@@ -10,6 +10,7 @@
   border-radius: 19px;
   width: 640px;
   height: 512px;
+  margin-bottom: 20px;
 }
 .boxRight {
   display: flex;
