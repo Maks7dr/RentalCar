@@ -11,10 +11,6 @@
 .active {
   color: #0b44cd;
 }
-.link:active {
-  transform: color;
-  transition: 250ms ease-in-out;
-}
 
 .link:hover {
   transition: color 250ms ease-in-out;
