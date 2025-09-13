@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
 import css from "./BookingForm.module.css";
 
 const BookingForm = () => {
@@ -23,11 +24,11 @@ const BookingForm = () => {
       .send("service_v1r17ru", "template_8vxhyp9", values, "sHSCXe4b7SGQ_1nj9")
       .then(
         () => {
-          alert("Booking request sent successfully!");
+          toast.success("Booking request sent successfully!");
           resetForm();
         },
         (error) => {
-          alert("Failed to send. Please try again later.");
+          toast.error("Failed to send. Please try again later.");
           console.error(error);
         }
       );

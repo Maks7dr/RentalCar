@@ -18,16 +18,17 @@ export const fetchCars = createAsyncThunk(
           price: price || undefined,
           mileageFrom: mileageFrom || undefined,
           mileageTo: mileageTo || undefined,
-          _ts: Date.now(), // ⏰ щоб обійти кеш
+          _ts: Date.now(),
         },
         headers: {
           "Cache-Control": "no-cache",
         },
       });
-
-      return data.cars;
+      return { cars: data.cars || [], page, limit };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const message =
+        error?.response?.data?.message || error.message || "Error";
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -39,7 +40,9 @@ export const fetchCarById = createAsyncThunk(
       const { data } = await axios.get(`/cars/${id}`);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const message =
+        error?.response?.data?.message || error.message || "Error";
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );

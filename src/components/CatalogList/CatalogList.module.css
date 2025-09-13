@@ -5,3 +5,26 @@
   flex-wrap: wrap;
   gap: 32px;
 }
+.loadMoreWrapper {
+  padding-top: 80px;
+  padding-bottom: 124px;
+}
+.loadMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 1px solid var(--button);
+  border-radius: 12px;
+  padding: 12px 38px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--main);
+  background-color: white;
+}
+.loadMoreButton:hover {
+  border: 1px solid var(--button-hover);
+  background-color: inherit;
+}
