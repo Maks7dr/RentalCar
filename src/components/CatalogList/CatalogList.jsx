@@ -12,6 +12,7 @@ import CarCard from "../CarCard/CarCard";
 import { Container } from "../Container/Container";
 import css from "./CatalogList.module.css";
 import Filters from "../Filters/Filters";
+import { ClipLoader } from "react-spinners";
 
 const CarList = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,19 @@ const CarList = () => {
     dispatch(fetchCars({ page: page + 1, limit: 12 }));
   };
 
-  if (isLoading && cars.length === 0) return <p>Завантаження...</p>;
+  if (isLoading && cars.length === 0) {
+    return (
+      <div className={css.loaderContainer}>
+        <ClipLoader
+          color="#3470ff"
+          loading={true}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
   if (error && cars.length === 0) return <p>Помилка: {error}</p>;
 
   return (
@@ -49,7 +62,15 @@ const CarList = () => {
 
         <div className={css.loadMoreWrapper}>
           {isLoading && cars.length > 0 && (
-            <p>Завантаження додаткових авто...</p>
+            <div className={css.loaderContainer}>
+              <ClipLoader
+                color="#3470ff"
+                loading={true}
+                size={50}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
           )}
           {hasMore && (
             <button

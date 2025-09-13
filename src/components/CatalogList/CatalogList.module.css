@@ -28,3 +28,9 @@
   border: 1px solid var(--button-hover);
   background-color: inherit;
 }
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}

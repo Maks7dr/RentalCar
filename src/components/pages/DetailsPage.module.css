@@ -75,3 +75,10 @@
   align-items: center;
   gap: 8px;
 }
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}

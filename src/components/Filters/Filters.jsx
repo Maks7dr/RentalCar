@@ -44,8 +44,10 @@ const Filters = () => {
   const [price, setLocalPrice] = useState("");
   const [mileageFrom, setLocalMileageFrom] = useState("");
   const [mileageTo, setLocalMileageTo] = useState("");
+  const [showReset, setShowReset] = useState(false);
 
   const handleSearch = () => {
+    console.log("SEARCH clicked");
     dispatch(setBrand(brand));
     dispatch(setPrice(Number(price) || ""));
     dispatch(
@@ -56,6 +58,8 @@ const Filters = () => {
     );
 
     dispatch(fetchCars({ page: 1, limit: 12 }));
+    setShowReset(true);
+    console.log("showReset:", true);
   };
 
   const handleReset = () => {
@@ -65,6 +69,7 @@ const Filters = () => {
     setLocalMileageFrom("");
     setLocalMileageTo("");
     dispatch(fetchCars({ page: 1, limit: 12 }));
+    setShowReset(false);
   };
 
   const handleMileageChange = (setter) => (e) => {
@@ -120,9 +125,11 @@ const Filters = () => {
         <button className={css.button} onClick={handleSearch}>
           Search
         </button>
-        <button className={css.button} onClick={handleReset}>
-          Reset
-        </button>
+        {showReset && (
+          <button className={css.button} onClick={handleReset}>
+            Reset
+          </button>
+        )}
       </div>
     </Container>
   );

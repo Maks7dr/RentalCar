@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 import css from "./BookingForm.module.css";
+import { ClipLoader } from "react-spinners";
 
 const BookingForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const initialValues = {
     name: "",
     email: "",
@@ -20,16 +24,19 @@ const BookingForm = () => {
   });
 
   const handleSubmit = (values, { resetForm }) => {
+    setIsLoading(true);
     emailjs
       .send("service_v1r17ru", "template_8vxhyp9", values, "sHSCXe4b7SGQ_1nj9")
       .then(
         () => {
           toast.success("Booking request sent successfully!");
           resetForm();
+          setIsLoading(false);
         },
         (error) => {
           toast.error("Failed to send. Please try again later.");
           console.error(error);
+          setIsLoading(false);
         }
       );
   };
@@ -85,8 +92,8 @@ const BookingForm = () => {
             />
           </label>
 
-          <button type="submit" className={css.button}>
-            Send
+          <button type="submit" className={css.button} disabled={isLoading}>
+            {isLoading ? <ClipLoader color="#fff" size={20} /> : "Send"}
           </button>
         </Form>
       </Formik>

@@ -16,6 +16,7 @@ import { parseAddress } from "../utils/parseAddress";
 import BookingForm from "../BookingForm/BookingForm";
 import { IoLocationOutline, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { FaCalendarAlt, FaCarSide, FaGasPump, FaCogs } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -32,7 +33,18 @@ const DetailsPage = () => {
     };
   }, [dispatch, id]);
 
-  if (isLoading) return <p>Завантаження...</p>;
+  if (isLoading) {
+    return (
+      <div className={css.loaderContainer}>
+        <ClipLoader
+          color="#3470ff"
+          loading={true}
+          size={50}
+          aria-label="Loading Spinner"
+        />
+      </div>
+    );
+  }
   if (error) return <p>Помилка: {error}</p>;
   if (!car) return null;
 
