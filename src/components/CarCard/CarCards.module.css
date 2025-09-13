@@ -1,6 +1,10 @@
 .item {
   width: 276px;
 }
+
+.imageWrapper {
+  position: relative;
+}
 .img {
   border-radius: 14px;
   width: 276px;
@@ -8,6 +12,32 @@
   margin-bottom: 16px;
   object-fit: cover;
 }
+
+.favoriteBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.favoriteBtn:focus,
+.favoriteBtn:hover {
+  outline: none;
+  background: none;
+  border: none;
+  color: inherit;
+}
+.heartOutline {
+  font-size: 24px;
+  color: var(--gray);
+}
+
+.heartFilled {
+  font-size: 24px;
+  color: var(--button);
+}
+
 .title {
   font-family: var(--font-family);
   font-weight: 500;
