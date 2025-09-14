@@ -41,6 +41,13 @@
 .field:active {
   border: none;
 }
+.error {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 125%;
+  color: #cb1400;
+}
 
 .textarea {
   font-family: var(--font-family);

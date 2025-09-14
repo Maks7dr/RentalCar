@@ -108,3 +108,6 @@ button:hover {
   transition: background-color 250ms ease-in-out;
   background-color: var(--button-hover);
 }
+input {
+  margin: 0;
+}

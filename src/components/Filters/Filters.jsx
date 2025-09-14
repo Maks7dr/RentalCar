@@ -1,16 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  setBrand,
-  setPrice,
-  setMileageFrom,
-  setMileageTo,
-  resetFilters,
-} from "../redux/filters/slice";
 import { fetchCars } from "../redux/cars/operations";
-import css from "./Filters.module.css";
-import { Container } from "../Container/Container";
+import { selectFilters } from "../redux/filters/selectors";
+import { setFilters } from "../redux/filters/slice";
 import { formatMileage } from "../utils/formatMileage";
+import css from "./Filters.module.css";
 
 const BRANDS = [
   "Aston Martin",
@@ -40,51 +34,68 @@ const PRICES = Array.from({ length: 10 }, (_, i) => (i + 1) * 10);
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const [brand, setLocalBrand] = useState("");
-  const [price, setLocalPrice] = useState("");
-  const [mileageFrom, setLocalMileageFrom] = useState("");
-  const [mileageTo, setLocalMileageTo] = useState("");
-  const [showReset, setShowReset] = useState(false);
+  const savedFilters = useSelector(selectFilters);
 
-  const handleSearch = () => {
-    console.log("SEARCH clicked");
-    dispatch(setBrand(brand));
-    dispatch(setPrice(Number(price) || ""));
-    dispatch(
-      setMileageFrom(mileageFrom ? Number(mileageFrom.replace(/\s/g, "")) : "")
-    );
-    dispatch(
-      setMileageTo(mileageTo ? Number(mileageTo.replace(/\s/g, "")) : "")
-    );
+  const [brand, setBrand] = useState(savedFilters.brand || "");
+  const [price, setPrice] = useState(savedFilters.price || "");
+  const [mileageFrom, setMileageFrom] = useState(
+    savedFilters.mileageFrom || ""
+  );
+  const [mileageTo, setMileageTo] = useState(savedFilters.mileageTo || "");
 
-    dispatch(fetchCars({ page: 1, limit: 12 }));
-    setShowReset(true);
-    console.log("showReset:", true);
+  const hasActiveFilters = brand || price || mileageFrom || mileageTo;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const filters = {
+      brand: brand || null,
+      price: price ? Number(price) : null,
+      mileageFrom: mileageFrom ? Number(mileageFrom) : null,
+      mileageTo: mileageTo ? Number(mileageTo) : null,
+    };
+
+    dispatch(setFilters(filters));
+
+    dispatch(
+      fetchCars({
+        page: 1,
+        limit: 12,
+        ...filters,
+      })
+    );
   };
 
   const handleReset = () => {
-    dispatch(resetFilters());
-    setLocalBrand("");
-    setLocalPrice("");
-    setLocalMileageFrom("");
-    setLocalMileageTo("");
-    dispatch(fetchCars({ page: 1, limit: 12 }));
-    setShowReset(false);
-  };
+    setBrand("");
+    setPrice("");
+    setMileageFrom("");
+    setMileageTo("");
 
-  const handleMileageChange = (setter) => (e) => {
-    const raw = e.target.value.replace(/\s/g, "");
-    if (!/^\d*$/.test(raw)) return;
-    setter(raw ? formatMileage(Number(raw)) : "");
+    dispatch(
+      setFilters({
+        brand: null,
+        price: null,
+        mileageFrom: null,
+        mileageTo: null,
+      })
+    );
+
+    dispatch(fetchCars({ page: 1, limit: 12 }));
   };
 
   return (
-    <Container className={css.container}>
-      <div className={css.filters}>
+    <form
+      className={css.container}
+      onSubmit={handleSubmit}
+      style={{ marginBottom: "20px" }}
+    >
+      <div className={css.wrapper}>
+        <label className={css.label}>Car brand </label>
         <select
           className={css.select}
           value={brand}
-          onChange={(e) => setLocalBrand(e.target.value)}
+          onChange={(e) => setBrand(e.target.value)}
         >
           <option value="">Choose a brand</option>
           {BRANDS.map((b) => (
@@ -93,11 +104,14 @@ const Filters = () => {
             </option>
           ))}
         </select>
+      </div>
 
+      <div className={css.wrapper}>
+        <label className={css.label}>Price / 1 hour </label>
         <select
           className={css.select}
           value={price}
-          onChange={(e) => setLocalPrice(e.target.value)}
+          onChange={(e) => setPrice(e.target.value)}
         >
           <option value="">Choose a price</option>
           {PRICES.map((p) => (
@@ -106,32 +120,43 @@ const Filters = () => {
             </option>
           ))}
         </select>
+      </div>
 
-        <input
-          className={css.inputFirst}
-          type="text"
-          placeholder="From"
-          value={mileageFrom}
-          onChange={handleMileageChange(setLocalMileageFrom)}
-        />
+      <div className={css.box}>
+        <label className={css.wrapper}>
+          Car mileage / km
+          <input
+            className={css.inputFirst}
+            type="text"
+            value={mileageFrom ? formatMileage(mileageFrom) : ""}
+            onChange={(e) => {
+              const rawValue = e.target.value.replace(/\s/g, ""); // прибираємо пробіли
+              setMileageFrom(rawValue === "" ? "" : Number(rawValue));
+            }}
+            placeholder="From"
+          />
+        </label>
         <input
           className={css.inputSecond}
           type="text"
+          value={mileageTo ? formatMileage(mileageTo) : ""}
+          onChange={(e) => {
+            const rawValue = e.target.value.replace(/\s/g, "");
+            setMileageTo(rawValue === "" ? "" : Number(rawValue));
+          }}
           placeholder="To"
-          value={mileageTo}
-          onChange={handleMileageChange(setLocalMileageTo)}
         />
-
-        <button className={css.button} onClick={handleSearch}>
-          Search
-        </button>
-        {showReset && (
-          <button className={css.button} onClick={handleReset}>
-            Reset
-          </button>
-        )}
       </div>
-    </Container>
+      <button className={css.button} type="submit">
+        Search
+      </button>
+
+      {hasActiveFilters && (
+        <button type="button" className={css.button} onClick={handleReset}>
+          Reset
+        </button>
+      )}
+    </form>
   );
 };
 

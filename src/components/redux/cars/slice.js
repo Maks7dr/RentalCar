@@ -17,7 +17,6 @@ const carsSlice = createSlice({
     clearSelectedCar: (state) => {
       state.selectedCar = null;
     },
-
     clearCars: (state) => {
       state.items = [];
       state.page = 1;
@@ -30,7 +29,6 @@ const carsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         const pageArg = action.meta.arg?.page ?? 1;
-
         if (pageArg === 1) {
           state.items = [];
           state.page = 1;
@@ -40,13 +38,14 @@ const carsSlice = createSlice({
       .addCase(fetchCars.fulfilled, (state, action) => {
         state.isLoading = false;
         const { cars, page, limit } = action.payload;
+
         if (page === 1) {
           state.items = cars;
         } else {
           state.items = [...state.items, ...cars];
         }
-        state.page = page;
 
+        state.page = page;
         state.hasMore = Array.isArray(cars) ? cars.length === limit : false;
       })
       .addCase(fetchCars.rejected, (state, action) => {
